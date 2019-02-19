@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HW_Day10_04", "HW_Day10_04\HW_Day10_04.vcxproj", "{DB74D6A8-254F-4FC1-ADDB-3FB611DB4F42}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB74D6A8-254F-4FC1-ADDB-3FB611DB4F42}.Debug|x64.ActiveCfg = Debug|x64
+		{DB74D6A8-254F-4FC1-ADDB-3FB611DB4F42}.Debug|x64.Build.0 = Debug|x64
+		{DB74D6A8-254F-4FC1-ADDB-3FB611DB4F42}.Debug|x86.ActiveCfg = Debug|Win32
+		{DB74D6A8-254F-4FC1-ADDB-3FB611DB4F42}.Debug|x86.Build.0 = Debug|Win32
+		{DB74D6A8-254F-4FC1-ADDB-3FB611DB4F42}.Release|x64.ActiveCfg = Release|x64
+		{DB74D6A8-254F-4FC1-ADDB-3FB611DB4F42}.Release|x64.Build.0 = Release|x64
+		{DB74D6A8-254F-4FC1-ADDB-3FB611DB4F42}.Release|x86.ActiveCfg = Release|Win32
+		{DB74D6A8-254F-4FC1-ADDB-3FB611DB4F42}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
