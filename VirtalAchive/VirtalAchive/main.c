@@ -58,7 +58,7 @@ char* my_strstr(const char*dest,const char*src)
 	while (*dest != '\0')
 	{
 		dest = check_start;
-		while (dest&&src && *dest == *src)//出现同步开始判断
+		while (*dest&&*src && *dest == *src)//出现同步开始判断
 		{
 			dest++;
 			src++;
@@ -132,8 +132,8 @@ void* my_memmov(void*dest, const void*src, unsigned int byte)
 
 int main()
 {
-	char arr2[20] = "abbbbcdef";
-	char arr[] = "abbbbcdef";
+	char arr2[20] = "aaaaa";
+	char arr[] = "bba";
 	int   arr3[10] = { 10,9,8,7,6,5,4,3,2,1 };
 	int   arr4[] = { 1,2,3,4,5 };
 	//printf("%d", strlen_Reverse(arr2));//test for strlen_Reverse;
@@ -142,14 +142,14 @@ int main()
 	//my_memcpy(arr3+3 ,arr3, 16);//test for my_memcpy;
 	//printf("%d", my_strcmp(arr2, arr));//test for my_strcmp;
 	//printf("%s", my_strcat(arr2, arr));//test for my_strcat/my_strcpy;
-	//if (my_strstr(arr2, arr))// test for my_strstr;
-	//{
-	//	printf("%s", my_strstr(arr2, arr));
-	//}
-	//else
-	//{
-	//	printf("没找着子序列\n");
-	//}
+	if (my_strstr(arr2, arr))// test for my_strstr;
+	{
+		printf("%s", my_strstr(arr2, arr));
+	}
+	else
+	{
+		printf("没找着子序列\n");
+	}
 	//printf("%s", my_strchr(arr2, 'b'));//test for my_strchr;
 	system("pause");
 	return 0;
