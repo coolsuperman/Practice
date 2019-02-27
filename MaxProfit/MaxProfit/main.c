@@ -15,7 +15,7 @@ int maxProfit(int* prices, int pricesSize)
 	return realmax>0 ? realmax : 0;
 }
 
-int my_StupidmaxProfit(int* prices, int pricesSize)
+int my_Stupid_maxProfit(int* prices, int pricesSize)
 {
 	int i = 0, j = 0, max = 0;
 	for (i = 0; i<pricesSize; i++)
