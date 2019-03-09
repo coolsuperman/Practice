@@ -5,6 +5,10 @@
 
 char* longestCommonPrefix(char** strs, int strsSize)
 {
+	if (strsSize == 0)
+	{
+		return "";
+	}
 	char* save_same = (char*)malloc(sizeof(char) * 2);
 	int size = 2;
 	int i = 0, j = 0;
@@ -26,7 +30,7 @@ char* longestCommonPrefix(char** strs, int strsSize)
 					return save_same;
 				}
 			}
-			realloc(save_same, ++size);
+			save_same = (char*)realloc(save_same, ++size);
 			save_same[size - 1] = 0;
 		}
 		else
