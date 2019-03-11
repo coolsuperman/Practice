@@ -1,8 +1,9 @@
-//反转一个单链表。
+//反转一个单链表
 #define _CRT_SECURE_NO_WARNINGS 1
 #include<stdio.h>
 #include<stdlib.h>
 #include<assert.h>
+#include<string.h>
 
 struct ListNode 
 {
@@ -12,13 +13,13 @@ struct ListNode
 
 typedef struct List
 {
-	struct ListNode*head;
+	struct ListNode* first;
 }List;
 
 struct ListNode* reverseList_2(List* list)
 {
 	struct ListNode* new = NULL;
-	struct ListNode* go = list->head;
+	struct ListNode* go = list->first;
 	while (go != NULL)
 	{
 		struct ListNode* temp = go;
@@ -31,13 +32,13 @@ struct ListNode* reverseList_2(List* list)
 
 struct ListNode* reverseList( List* list) //在得到节点时原位置直接改变
 {
-	if (list->head == NULL)
+	if (list->first == NULL)
 	{
-		return list->head;
+		return list->first;
 	}
 	struct ListNode* prev = NULL;
-	struct ListNode* next = list->head->next;
-	for (struct ListNode* go = list->head; go != NULL;)
+	struct ListNode* next = list->first->next;
+	for (struct ListNode* go = list->first; go != NULL;)
 	{
 		go->next = prev;
 		prev = go;
@@ -54,14 +55,14 @@ void PushValue(List*list,int value)
 {
 	struct ListNode* block = (struct ListNode*)malloc(sizeof(struct ListNode));
 	block->val = value;
-	block->next = list->head;
-	list->head = block;
+	block->next = list->first;
+	list->first = block;
 }
 
 void ListInit(List*list)
 {
 	assert(list != NULL);
-	list->head = NULL;
+	list->first = NULL;
 }
 
 int main()
