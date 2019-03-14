@@ -1,3 +1,4 @@
+//用队列实现栈
 #define _CRT_SECURE_NO_WARNINGS 1
 #include<stdio.h>
 #include<stdlib.h>
