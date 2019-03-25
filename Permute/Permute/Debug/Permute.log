@@ -1,4 +1,4 @@
-﻿生成启动时间为 2019/3/25 21:17:50。
+﻿生成启动时间为 2019/3/25 23:40:20。
      1>项目“D:\Code\Practice\Permute\Permute\Permute.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TC /analyze- /errorReport:prompt main.c
@@ -10,4 +10,4 @@
 
 已成功生成。
 
-已用时间 00:00:00.46
+已用时间 00:00:00.74

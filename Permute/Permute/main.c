@@ -2,34 +2,33 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-void swape (int i , int j , int* nums) {
-	int tmp;
-	tmp = nums [i];
-	nums [i] = nums [j];
-	nums [j] = tmp;
+void swap (int *a, int* b) {
+	int c;
+	c = *a;
+	*a = *b;
+	*b = c;
 }
 
-void per (int* nums , int start , int size , int** p , int* sum) {
-	int i;
+void go (int* nums , int start , int size , int** p , int* sum) {
 	if ( start == size - 1 ) {
-		p [*sum] = (int*)malloc (sizeof (int) * size);
-		for ( i = 0; i < size; i++ )
-			p [*sum] [i] = nums [i];
-		(*sum)++;
-	}
-	else {
-		for ( i = start; i < size; i++ ) {
-			swape (i , start , nums);
-			per (nums , start + 1 , size , p , sum);
-			swape (i , start , nums);
+		p [*sum] = (int*)malloc (sizeof (int)*size);
+		for ( int j = 0; j < size; j++ ) {
+			p [*sum] [j] = nums [j];
 		}
+		(*sum)++;
+		return;
+	}
+	for ( int i = start; i < size; i++ ) {
+		swap (nums+i , nums+start );
+		go (nums , start + 1 , size , p , sum);
+		swap (nums + i , nums + start);
 	}
 }
 
 int** permute (int* nums , int numsSize , int* returnSize) {
 	int sum = 0;
 	int** p = (int **)malloc (sizeof (int*) * 10000);
-	per (nums , 0 , numsSize , p , &sum);
+    go (nums , 0 , numsSize , p , &sum);
 	*returnSize = sum;
 	return p;
 }
