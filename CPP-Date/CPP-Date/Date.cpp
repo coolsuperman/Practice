@@ -15,6 +15,12 @@ class Date {
 		return day;
 	}
 	Date (int year = 1900 , int month = 1 , int day = 1) {//这是全缺省构造函数；
+		if ( year <= 0 || month > 12 || month<1 || day <= 0 || day>getCipacaty (year , month) ) {
+			std::cout << "非法日期,日期已设置1900-1-1" << std::endl;
+			_year = 1900;
+			_month = 1;
+			_day = 1;
+		}
 		_year = year;
 		_month = month;
 		_day = day;
@@ -33,72 +39,71 @@ class Date {
 		return *this;
 	}
 	Date operator+=(int day) {
-		this->_day += day;
-		if ( this->_day > this->getCipacaty (this->_year , this->_month) ) {
-			int Cipacaty = this->getCipacaty (this->_year , this->_month);
-			int count = this->_day / Cipacaty;
-			this->_day -= Cipacaty*count;
+		if ( day < 0 ) {//考虑小于零；
+			return *this -= -day;
 		}
-		if ( this->_month > 12 ) {
-			int count = this->_month / 12;
-			this->_year += count;
-			this->_month -= 12 * count;
+		_day += day;
+		while ( _day > getCipacaty (_year ,_month) ) {
+			_day -= getCipacaty (_year , _month);
+			++_month;
+			if ( _month == 13 ) {
+				_month = 1;
+				++_year;
+			}
 		}
 		return *this;
 	}
 	Date operator-=(int day) {
-		this->_day -= day;
-		if ( this->_day <1 ) {
-			int Cipacaty = this->getCipacaty (this->_year , this->_month);
-			int count = this->_day / Cipacaty - 1;//负数
-			this->_month += count;
-			this->_day -= Cipacaty*count;
+		if ( day < 0 ) {
+			return *this += -day;
 		}
-		if ( this->_month < 1 ) {
-			int count = this->_month / 12 - 1;//负数
-			this->_year += count;
-			this->_month -= 12 * count;
+		_day -= day;
+		while ( _day <=0 ) {
+			_day += getCipacaty (_year , _month);
+			--_month;
+			if ( _month == 0 ) {
+				_month = 12;
+				--_year;
+			}
 		}
 		return *this;
 	}
 	Date operator+(int days){
-		*this += days;
+		Date ret (*this);//不能改变原来的值，所以先拷贝一份
+		ret += days;
+		return ret;
 	}
 	Date operator-(int days) {
-		*this -= days;
+		Date ret (*this);//不能改变原来的值，所以先拷贝一份
+		ret -= days;
+		return ret;
 	}
 	
 	int operator-(const Date& d) {//两个Date互减,考虑润年
-		int small = 0 , big = 0,add = 0,small_month,big_month;
-		if ( this->_year < d._year ) {
-			small = this->_year;
-			big = d._year;
+		Date c (*this);//因为是const，所以拷贝一下
+		int flag = 1;
+		if ( c < d ) { flag = -1; }
+		int day = 0;
+		if ( c < d ) {
+			while ( c < d ) {
+				++c;
+				++day;
+			}
+			
 		}
 		else {
-		    big = this->_year;
-			small = d._year;
-		}
-		for ( int i = small + 1; i < big; i++ ) {
-			if ( (i % 4 == 0 && i % 10 != 0) || (i % 400 == 0) ) {
-				 add++;
+			while ( c > d ) {
+				--c;
+				++day;
 			}
 		}
-		int this_days = 0 , d_days = 0;
-		for ( int i = 1; i < this->_month; i++ ) {
-			this_days += this->getCipacaty (this->_year , i);
-		}
-		this_days += this->_day;
-		for ( int i = 1; i < d._month; i++ ) {
-			d_days += d.getCipacaty(d._year , i);
-		}
-		d_days += d._day;
-		
+		return day*flag;
 	}
-	Date& operator++() {
+	Date& operator++() {//前置++；
 		*this += 1;
 		return *this;
 	}
-	Date operator++(int) {
+	Date operator++(int) {//后置++；
 		Date tmp (*this);
 		*this += 1;
 		return tmp;
@@ -113,26 +118,30 @@ class Date {
 		return tmp;
 	}
 	bool operator>(const Date& d)const {
-		if ( this->_year > d._year ) { return true; }
-		else if(this->_year < d._year) { return false; }
+		if ( _year > d._year ) { return true; }
+		else if(_year < d._year) { return false; }
 		else {
-			if ( this->_month > d._month ) { return true; }
-			else if ( this->_month< d._month ) { return false; }
+			if ( _month > d._month ) { return true; }
+			else if (_month< d._month ) { return false; }
 			else {
-				if ( this->_day > d._day ) { return true; }
+				if ( _day > d._day ) { return true; }
 				else { return false; }
 			}
 		}
 	}
 	bool operator==(const Date& d)const {
-		if ( this->_year == d._year ) {
-			if ( this->_month == d._month ) {
-				if ( this->_day == d._day ) { return true; }
+		if ( _year == d._year ) {
+			if ( _month == d._month ) {
+				if ( _day == d._day ) { return true; }
 			}
 		}
 		return false;
 	}
 	bool operator<(const Date& d)const {
+		if ((*this != d) && (!(*this>d))) {
+			return true;
+		}
+		return false;
 	}
 	bool operator>=(const Date& d)const {
 		if ( *this > d || *this == d ) { return true; }
@@ -140,8 +149,21 @@ class Date {
 			return false;
 		}
 	}
-	bool operator<=(const Date& d)const;
-	bool operator!=(const Date& d)const;
+	bool operator<=(const Date& d)const {
+		if ( *this < d || *this == d ) { return true; }
+		else {
+			return false;
+		}
+	}
+	bool operator!=(const Date& d)const {
+		if ( !(*this == d) ) {
+			return true;
+		}
+		return false;
+	}
+	void display () {
+		std::cout << _year<<"-" << _month<<"-"<<_day<<std::endl;
+	}
 	private:
 	int _year;
 	int _month;
@@ -150,6 +172,12 @@ class Date {
 
 
 int main () {
+	Date d1 (1998 , 5,27);
+	Date d2 (2019 , 03 , 27);
+	d1.display();
+	std::cout << "—" << std::endl;
+	d2.display ();
+	std::cout << "="<<d2 - d1 << std::endl;
 	system ("pause");
 	return 0;
 }
