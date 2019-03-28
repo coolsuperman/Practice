@@ -114,7 +114,7 @@ class Date {
 	}
 	Date operator--(int) {
 		Date tmp (*this);
-		*this += 1;
+		*this -= 1;
 		return tmp;
 	}
 	bool operator>(const Date& d)const {
