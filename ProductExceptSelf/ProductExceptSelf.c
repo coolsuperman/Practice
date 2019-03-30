@@ -3,17 +3,17 @@
 
 int* productExceptSelf(int* nums, int numsSize, int* returnSize) {
       *returnSize = numsSize;
-      int* back = (int *)malloc(sizeof(int)*numsSize);
+      int* result = (int *)malloc(sizeof(int)*numsSize);
       int i = 0,j = 0;
-      back[0]= 1;
+      result[0]= 1;
       for(i= 1;i<numsSize;i++){
-           back[i] = back[i-1]*nums[i-1];               
+           result[i] = result[i-1]*nums[i-1];               
       }
       for(i = numsSize-2,j= 1;i>=0;--i){
           j*=nums[i+1];
-          back[i] *=j;                        
+          result[i] *=j;                        
        }
-      return back;
+      return result;
 }
 
 int main(){
