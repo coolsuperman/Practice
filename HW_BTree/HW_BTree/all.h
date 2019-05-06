@@ -55,7 +55,7 @@ void QueueDestroy (Queue* q);
 
 BTNode* CreateBinTree (BTDataType* array , int size);
 BTNode* CopyBinTree (BTNode* pRoot);
-void DestroyBinTree (BTNode* pRoot);
+void DestroyBinTree (BTNode** pRoot);
 void PreOrder (BTNode* pRoot);
 void PreOrderNor (BTNode* pRoot);
 void InOrder (BTNode* pRoot);
