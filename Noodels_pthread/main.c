@@ -17,14 +17,14 @@ void* Eat(void* arg){
       pthread_cond_wait(&client,&lock);//解锁》唤醒》加锁；
       if(count==max){//做了100碗面了，客人线程退出，并唤醒一个厨师线程下班
         printf("NO:%ld set no clint come in!\n",(long)arg);
-        pthread_cond_signal(&cooker);
+        pthread_cond_broadcast(&cooker);
         pthread_mutex_unlock(&lock);
         pthread_exit(NULL);
       }
     }
     printf("clint NO:%ld eat noodle!\n",(long)arg);
     noodle = 0;
-    pthread_cond_signal(&cooker);
+    pthread_cond_broadcast(&cooker);
     pthread_mutex_unlock(&lock);
   }
   return NULL;
@@ -36,7 +36,7 @@ void* Make(void* arg){
       pthread_cond_wait(&cooker,&lock);
       if(count==max){//已经到达了目标碗面了，一个厨师下线，唤醒一个客人线程不再产生客人；
         printf("At night resturant close,No:%ld out!\n",(long)arg);
-        pthread_cond_signal(&client);
+        pthread_cond_broadcast(&client);
         pthread_mutex_unlock(&lock);
         pthread_exit(NULL);
       }
@@ -45,7 +45,7 @@ void* Make(void* arg){
     noodle = 1;
     count++;
     printf("has cooked: %d\n",count);
-    pthread_cond_signal(&client);
+    pthread_cond_broadcast(&client);
     pthread_mutex_unlock(&lock);
   }
   return NULL;
