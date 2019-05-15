@@ -12,7 +12,6 @@ void* TicketGrabbing(void * argv){
     usleep(100*(Ticket*100));
     pthread_mutex_lock(&ticket_lock);//判断前先加锁；
       if(Ticket>0){
-        usleep(1000);
         printf("GrabbingRobot No:%ld catch Ticket No:%d\n",i+1,Ticket);
         Ticket--;
         count[i]++;
@@ -39,6 +38,7 @@ int main(){
   for( i = 0;i<4;i++){
     pthread_join(tpid[i],NULL);//进程等待四个robot线程都运行完再退出；
   }
+  pthread_mutex_destroy(&ticket_lock);
   return 0;
 }
 
